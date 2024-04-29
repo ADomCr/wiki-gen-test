@@ -39,6 +39,7 @@ cp -R "$TEMP_WIKI_DIR/.git" "$WIKI_DIR/"
 
 echo "Checking if wiki has changes"
 cd "$WIKI_DIR"
+ls -a
 git config --local user.email "$email"
 git config --local user.name "$author" 
 git add .

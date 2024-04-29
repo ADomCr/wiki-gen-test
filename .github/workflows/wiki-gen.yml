@@ -40,7 +40,7 @@ jobs:
     #       git commit -m "update wiki"
     #       git push
     - name: Update Wiki
-      run: ./update-wiki.sh
+      run: ./update-wiki-v2.sh
       shell: bash
       env:
         WIKI_DIR: "./wiki"

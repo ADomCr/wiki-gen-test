@@ -1,14 +1,14 @@
 #!/bin/sh
 set -eu
 
-echo "Restore project"
-dotnet restore
+# echo "Restore project"
+# dotnet restore
 
-echo "Restore local tools"
-dotnet tool restore
+# echo "Restore local tools"
+# dotnet tool restore
 
-echo "Build project"
-dotnet build --configuration Release --no-restore
+# echo "Build project"
+# dotnet build --configuration Release --no-restore
 
 if [ -z "$WIKI_DIR" ]; then
     echo "Wiki location is not specified, using default wiki/"
@@ -29,11 +29,18 @@ author=`git log -1 --format="%an"`
 email=`git log -1 --format="%ae"`
 message=`git log -1 --format="%s"`
 
-echo "Create wiki"
-dotnet netdocgen "ACadSharp\bin\Release\net6.0\ACadSharp.dll" -o "$WIKI_DIR/"
+# echo "Create wiki"
+# dotnet netdocgen "ACadSharp\bin\Release\net6.0\ACadSharp.dll" -o "$WIKI_DIR/"
 
 echo "Checking if wiki has changes"
 cd "$WIKI_DIR"
+
+echo "Add wiki files"
+
+echo "HELLO WORLD THIS IS MY FILE" > helloworld.md
+
+echo "START PUSH"
+
 git config --local user.email "$email"
 git config --local user.name "$author" 
 git add .

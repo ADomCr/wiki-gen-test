@@ -14,7 +14,6 @@ if [ -z "$GITHUB_TOKEN" ]; then
     exit 1
 fi
 
-
 #Clone repo
 echo "Cloning repo https://github.com/$GITHUB_REPOSITORY"
 git clone "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY" "$TEMP_REPO_DIR"
@@ -24,8 +23,8 @@ echo "Cloning wiki repo https://github.com/$GITHUB_REPOSITORY.wiki.git"
 cd "$TEMP_REPO_DIR"
 git clone "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" "$TEMP_WIKI_DIR"
 
-pwd
-ls 
+# pwd
+# ls 
 # cd "$TEMP_REPO_DIR"
 
 # echo "HELLO WORLD THIS IS MY FILE" > helloworld.md

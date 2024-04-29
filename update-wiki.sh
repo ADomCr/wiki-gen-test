@@ -1,53 +1,44 @@
 #!/bin/sh
 set -eu
 
-# echo "Restore project"
-# dotnet restore
+TMP_WORK_DIR="tmp-$GITHUB_SHA"
 
-# echo "Restore local tools"
-# dotnet tool restore
+WIKI_REPO_DIR="wiki-repo"
+WIKI_UPDATE_DIR="wiki-update"
 
-# echo "Build project"
-# dotnet build --configuration Release --no-restore
+echo Create working directory
+mkdir -p -- $TMP_WORK_DIR
 
-if [ -z "$WIKI_DIR" ]; then
-    echo "Wiki location is not specified, using default wiki/"
-    WIKI_DIR='wiki'
-fi
+echo Going to $TMP_WORK_DIR
+cd $TMP_WORK_DIR
 
-if [ -z "$GITHUB_TOKEN" ]; then
-    echo "Token is not specified"
-    exit 1
-fi
+echo Creating wiki folders
+mkdir -p -- $WIKI_REPO_DIR
+mkdir -p -- $WIKI_UPDATE_DIR
 
-#Clone wiki repo
-# echo "Cloning wiki repo https://github.com/$GITHUB_REPOSITORY.wiki.git"
-# git clone "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" "$WIKI_DIR"
+echo Cloning wiki
+git clone https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git $WIKI_REPO_DIR
 
+echo Create updated wiki
+echo "HELLO WORLD THIS IS MY FILE" > $WIKI_UPDATE_DIR/helloworld.md
+
+echo "Copying edited wiki"
+cp -R "$WIKI_REPO_DIR/.git" "$WIKI_UPDATE_DIR/"
+
+echo Go into the repo
+cd $WIKI_UPDATE_DIR
+pwd
+ls -a
+
+echo Prepare commit
 #Get commit details
 author=`git log -1 --format="%an"`
 email=`git log -1 --format="%ae"`
 message=`git log -1 --format="%s"`
 
-# echo "Create wiki"
-# dotnet netdocgen "ACadSharp\bin\Release\net6.0\ACadSharp.dll" -o "$WIKI_DIR/"
-
-echo "Checking if wiki has changes"
-cd "$WIKI_DIR"
-
-echo "Add wiki files"
-
-echo "HELLO WORLD THIS IS MY FILE" > helloworld.md
-
-echo "START PUSH"
-
 git config --local user.email "$email"
 git config --local user.name "$author" 
 git add .
-# if git diff-index --quiet HEAD; then
-#   echo "Nothing changed"
-#   exit 0
-# fi
 
 echo "Pushing changes to wiki"
 git commit -m "$message" && git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git"

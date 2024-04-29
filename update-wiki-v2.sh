@@ -24,10 +24,9 @@ echo "Cloning wiki repo https://github.com/$GITHUB_REPOSITORY.wiki.git"
 cd "$TEMP_REPO_DIR"
 git clone "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" "$TEMP_WIKI_DIR"
 
-ls
-cd ..
+pwd
 ls 
-cd "$TEMP_REPO_DIR"
+# cd "$TEMP_REPO_DIR"
 
 # echo "HELLO WORLD THIS IS MY FILE" > helloworld.md
 

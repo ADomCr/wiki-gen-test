@@ -24,11 +24,12 @@ echo "Cloning wiki repo https://github.com/$GITHUB_REPOSITORY.wiki.git"
 cd "$TEMP_REPO_DIR"
 git clone "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" "$TEMP_WIKI_DIR"
 
-cd ..
 ls
-echo "HELLO WORLD THIS IS MY FILE" > $WIKI_DIR/helloworld.md
-
+cd ..
+ls 
 cd "$TEMP_REPO_DIR"
+
+# echo "HELLO WORLD THIS IS MY FILE" > helloworld.md
 
 #Get commit details
 author=`git log -1 --format="%an"`

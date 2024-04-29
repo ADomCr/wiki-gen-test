@@ -43,5 +43,5 @@ jobs:
       run: ./update-wiki-v2.sh
       shell: bash
       env:
-        WIKI_DIR: "./wiki"
+        WIKI_DIR: "./wiki-test"
         GITHUB_TOKEN: ${{ github.token }}
